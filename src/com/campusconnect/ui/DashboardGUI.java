@@ -5,7 +5,10 @@ import com.campusconnect.services.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.util.List;
 import java.time.LocalDate;
 import java.awt.*;
@@ -152,6 +155,47 @@ public class DashboardGUI extends JFrame {
         String[] columns = {"Matricule", "Nom", "Prénom", "Filière", "Année"};
         studentsTableModel = new DefaultTableModel(columns, 0);
         JTable studentsTable = new JTable(studentsTableModel);
+
+        // --- Search Functionality ---
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(studentsTableModel);
+        studentsTable.setRowSorter(sorter);
+
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        searchPanel.setBackground(bgDark);
+
+        JLabel lblSearch = new JLabel("Rechercher : ");
+        lblSearch.setForeground(textSecondary);
+        lblSearch.setFont(regularFont);
+
+        JTextField searchField = new JTextField(15);
+        searchField.setBackground(bgPanel);
+        searchField.setForeground(textPrimary);
+        searchField.setCaretColor(textPrimary);
+        searchField.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 60)));
+        searchField.setFont(regularFont);
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { filter(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { filter(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { filter(); }
+
+            private void filter() {
+                String text = searchField.getText();
+                if (text.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(text)));
+                }
+            }
+        });
+
+        searchPanel.add(lblSearch);
+        searchPanel.add(searchField);
+        topPanel.add(searchPanel, BorderLayout.CENTER);
+
         studentsTable.setBackground(bgPanel);
         studentsTable.setForeground(textPrimary);
         studentsTable.setGridColor(new Color(60, 60, 60));
