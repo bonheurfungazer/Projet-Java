@@ -1,0 +1,196 @@
+Projet de Programmation Orientée Objet
+« CampusConnect » : Système de gestion universitaire
+Dr. Noulapeu Ngaffo Armielle
+Année universitaire 2025-2026
+
+Modalités :
+— Taille des groupes : 5 étudiants
+— Langage cible : Java (version 17 ou supérieure)
+— Date de rendu : À la derniere séance
+
+Table des matières
+1 Contexte et objectifs du projet
+
+2
+
+2 Cahier des charges fonctionnel
+2.1 Gestion des acteurs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2 Gestion de l’offre de formation . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3 Inscriptions et suivi académique (Évaluations) . . . . . . . . . . . . . . . .
+2.4 Gestion des plannings (Séances) . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+2
+2
+2
+3
+
+3 Contraintes techniques (POO)
+
+3
+
+4 Organisation du travail en groupe (5 étudiants)
+
+3
+
+5 Livrables attendus et Évaluation
+
+4
+
+1
+
+Projet de Fin de Module
+
+1
+
+Programmation Orientée Objet – 3ème année
+
+Contexte et objectifs du projet
+
+L’objectif de ce projet est de concevoir et d’implémenter un système logiciel robuste
+en mobilisant l’ensemble des concepts de la Programmation Orientée Objet (POO) abordés durant le semestre : abstraction, encapsulation, héritage, polymorphisme, gestion des
+exceptions et utilisation des collections.
+Vous allez réaliser « CampusConnect », une application console (ou avec une interface graphique simple en option) permettant de modéliser et de gérer la vie pédagogique
+de l’École Nationale Supérieure Polytechnique de Douala (ENSPD). Le système devra
+centraliser la gestion des acteurs (étudiants, enseignants), de l’offre de formation (cours,
+groupes), du parc immobilier (salles) ainsi que le suivi académique (inscriptions, notes,
+emploi du temps).
+
+2
+
+Cahier des charges fonctionnel
+
+Votre application doit a minima couvrir les domaines suivants. Vous êtes libres d’ajouter des fonctionnalités supplémentaires si vous le jugez pertinent.
+
+2.1
+
+Gestion des acteurs
+
+Le système manipule différentes catégories de personnes.
+— Généralités : Toute personne possède un identifiant unique, un nom, un prénom, une
+adresse email et une date de naissance.
+— Les Étudiants : Ils possèdent un matricule étudiant, une année d’étude (L1, L2, L3,
+etc.) et une filière. Le système doit pouvoir consulter la liste des cours auxquels un
+étudiant est inscrit.
+— Les Enseignants : Ils sont caractérisés par un statut (Permanent ou Vacataire) et un
+département de rattachement. Le système doit conserver la trace des enseignements
+qu’ils dispensent.
+
+2.2
+
+Gestion de l’offre de formation
+
+— Cours : Un cours est défini par un code (ex : INFO-301), un intitulé, une description,
+un volume horaire global et un enseignant responsable.
+— Groupes : Chaque cours peut être divisé en plusieurs groupes (par exemple, CM,
+TD1, TD2, TP1, TP2). Chaque groupe possède une capacité maximale, un enseignant
+affecté et une liste d’étudiants inscrits.
+— Salles : Les locaux sont caractérisés par un identifiant de salle (ex : Amphi A, Salle
+402), une capacité d’accueil et un type (amphithéâtre, salle de TP informatique, salle
+de cours classique).
+
+2.3
+
+Inscriptions et suivi académique (Évaluations)
+
+— Inscription : Un étudiant doit pouvoir s’inscrire à un groupe spécifique d’un cours.
+Le système doit vérifier que la capacité du groupe (et de la salle affectée) n’est pas
+dépassée.
+2
+
+Projet de Fin de Module
+
+Programmation Orientée Objet – 3ème année
+
+— Notes et Moyennes : Pour chaque inscription, il doit être possible de saisir plusieurs
+notes (avec d’éventuels coefficients). L’application devra être capable de calculer la
+moyenne d’un étudiant pour un cours donné, et de générer un relevé de notes global.
+
+2.4
+
+Gestion des plannings (Séances)
+
+— Séance : Une séance relie un groupe d’étudiants, un enseignant, une salle et un créneau
+horaire (date, heure de début, heure de fin).
+— Contrôle des conflits : L’application doit impérativement détecter et bloquer les
+conflits suivants lors de la création d’une séance :
+1. Une salle ne peut pas accueillir deux séances simultanément.
+2. Un enseignant ne peut pas animer deux séances en même temps.
+3. Un groupe d’étudiants ne peut pas assister à deux séances en même temps.
+
+3
+
+Contraintes techniques (POO)
+
+La notation portera fortement sur le respect des bonnes pratiques de conception orientée objet.
+— Modélisation et UML : Le projet doit s’appuyer sur un diagramme de classes UML
+réfléchi.
+— Encapsulation : Tous les attributs doivent être private ou protected. L’état des
+objets ne doit être modifié que via des méthodes validant les invariants métier (par
+exemple, une note ne peut pas être négative).
+— Héritage et Polymorphisme : Vous devez concevoir une hiérarchie de classes (par
+exemple, une classe abstraite Personne dérivée en Etudiant et Enseignant). Vous
+exploiterez le polymorphisme (ex : une collection de type List<Personne> sur laquelle
+on appelle une méthode redéfinie afficherDetails()).
+— Collections : L’utilisation des collections Java (ArrayList, HashSet, HashMap) est
+exigée pour gérer les listes de personnes, de cours, d’inscriptions, etc.
+— Gestion des Exceptions : Vous devez créer au moins deux classes d’exceptions
+personnalisées (ex : CapaciteDepasseeException, ConflitHoraireException) et
+les utiliser dans vos méthodes avec des blocs try/catch pertinents pour sécuriser
+l’application.
+— Interface Utilisateur : L’interface minimale est une interface textuelle (console)
+s’appuyant sur un menu interactif géré par une classe principale (ex : CampusApp). Une
+interface graphique (JavaFX ou Swing) est un bonus apprécié mais non obligatoire.
+
+4
+
+Organisation du travail en groupe (5 étudiants)
+
+Un travail de groupe réussi nécessite une bonne répartition des rôles. Il est fortement
+recommandé d’adopter l’organisation (ou une organisation similaire) suivante :
+1. Chef de projet / Responsable Modélisation UML : Coordonne le travail, gère
+la conception globale (Diagramme de classes) et s’assure de l’intégration des différents
+modules.
+3
+
+Projet de Fin de Module
+
+Programmation Orientée Objet – 3ème année
+
+2. Responsable « Acteurs & Suivi Académique » : Implémente la hiérarchie des
+personnes (Personne, Etudiant, Enseignant), la gestion des notes et la logique des
+relevés de notes.
+3. Responsable « Offre de Formation » : Implémente les classes Cours, Groupe,
+Salle et gère la logique d’inscription des étudiants aux groupes.
+4. Responsable « Planning & Exceptions » : Implémente les Séances, l’algorithme
+de vérification des conflits horaires et la création des exceptions personnalisées.
+5. Responsable « Interface Console & Scénarios » : Développe les menus interactifs
+(entrées/sorties avec Scanner), construit la classe de test principale (Main) et rédige
+le jeu d’essai.
+
+5
+
+Livrables attendus et Évaluation
+L’équipe devra fournir une archive (format .zip) contenant :
+
+1. Le code source (dossier src) : Bien indenté, commenté (Javadoc sur les classes et
+méthodes publiques), et organisé en packages.
+2. Le diagramme de classes final (PDF ou PNG) : Représentant l’architecture
+exacte du code rendu.
+3. Un rapport de projet (5 à 8 pages en PDF) :
+— Présentation rapide de l’architecture logicielle choisie.
+— Répartition effective du travail au sein de l’équipe.
+— Description des difficultés rencontrées et des solutions apportées (ex : comment
+avez-vous résolu les conflits d’horaires ?).
+— Un manuel d’utilisation rapide.
+Critères d’évaluation indicatifs :
+— Richesse et pertinence de la modélisation objet (25%)
+— Qualité du code : encapsulation, utilisation des collections, gestion des exceptions
+(35%)
+— Fonctionnalités : respect du cahier des charges, absence de bugs lors de l’exécution
+(25%)
+— Qualité du rapport, du diagramme UML et du travail d’équipe (15%)
+
+4
+
+
