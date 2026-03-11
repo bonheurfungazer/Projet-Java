@@ -24,11 +24,15 @@ public class CampusApp {
         System.out.println("  Bienvenue sur CampusConnect Dashboard   ");
         System.out.println("  \033[1mProjet realise par l'etudiant : Guepi takouo peguy maeva\033[0m  ");
         System.out.println("==========================================\n");
-        System.out.println("==========================================");
 
         boolean continuer = true;
+        clearScreen();
 
         while (continuer) {
+            System.out.println("==========================================");
+            System.out.println("  Bienvenue sur CampusConnect Dashboard   ");
+            System.out.println("  \033[1mProjet realise par l'etudiant : Guepi takouo peguy maeva\033[0m  ");
+            System.out.println("==========================================");
             System.out.println("\nMenu Principal:");
             System.out.println("1. Afficher les acteurs (Étudiants / Enseignants)");
             System.out.println("2. Inscrire un étudiant à un cours");
@@ -40,6 +44,7 @@ public class CampusApp {
             System.out.print("Votre choix : ");
 
             String choix = scanner.nextLine();
+            clearScreen();
 
             try {
                 switch (choix) {
@@ -71,8 +76,19 @@ public class CampusApp {
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
             }
+
+            if (continuer) {
+                System.out.println("\nAppuyez sur Entrée pour continuer...");
+                scanner.nextLine();
+                clearScreen();
+            }
         }
         scanner.close();
+    }
+
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     private static void menuInscription() {
