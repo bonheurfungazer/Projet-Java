@@ -1,57 +1,69 @@
-# CampusConnect
+# 🎓 CampusConnect
 
-**CampusConnect** est une application console et graphique de système de gestion universitaire développée en Java dans le cadre d'un projet de Programmation Orientée Objet (POO). Elle centralise la gestion des acteurs (étudiants, enseignants), de l'offre de formation (cours, groupes, salles), et du suivi académique (inscriptions, notes, emploi du temps).
+![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
+![Architecture](https://img.shields.io/badge/Architecture-POO-green)
+![UI](https://img.shields.io/badge/Interface-Swing%20%2F%20Console-orange)
 
-## Prérequis et Dépendances
+**CampusConnect** est une application logicielle de gestion universitaire. Elle centralise et automatise la gestion des acteurs de l'université (étudiants, enseignants), de l'offre de formation (cours, groupes, salles), et du suivi académique (inscriptions, notes, emplois du temps avec détection des conflits).
 
-Pour compiler et exécuter ce projet, vous avez besoin de :
+---
+**👨‍🎓 Projet Réalisé par : Guepi Takouo Peguy Maeva**
+---
 
-- **Java Development Kit (JDK) 17 ou supérieur.**
-  Vous pouvez vérifier votre version de Java en exécutant la commande suivante dans votre terminal :
+## 🚀 Fonctionnalités Principales
+
+- 👥 **Gestion des Acteurs :** Lister tous les étudiants inscrits et les enseignants enregistrés.
+- 📝 **Inscriptions Intelligentes :** Inscrire un étudiant à un groupe de TD/CM avec vérification automatique de la capacité maximale des salles.
+- 📊 **Suivi Académique :** Saisir des notes avec coefficients et générer instantanément un relevé de notes global.
+- 📅 **Planification Optimisée :** Assigner une salle, un enseignant et un horaire pour un cours. Le système intègre un algorithme robuste pour empêcher tout conflit horaire, de salle, ou d'enseignant.
+- 💻 **Interfaces Flexibles :**
+  - **Tableau de Bord Administrateur (GUI)** : Interface graphique moderne développée avec Java Swing offrant une vue d'ensemble statistiques et des activités de l'université.
+  - **Console Interactive (CLI)** : Une option en ligne de commande légère et performante.
+
+## 🛠️ Prérequis et Dépendances
+
+Pour compiler et exécuter ce projet sur votre machine locale, vous avez besoin de :
+
+- **Java Development Kit (JDK) 17** ou supérieur.
+  Vérifiez votre installation via votre terminal :
   ```bash
   java -version
   javac -version
   ```
-- Aucun framework externe ou bibliothèque tierce n'est requis (le projet utilise uniquement la bibliothèque standard de Java et Swing pour l'interface).
+- *Zéro dépendance tierce :* L'application repose intégralement sur les librairies standards de Java (AWT/Swing, java.time, Collections).
 
-## Instructions de Compilation et d'Exécution
+## ⚙️ Instructions de Compilation et d'Exécution
 
-Ouvrez un terminal (invite de commandes) et placez-vous dans le dossier **racine** du projet (celui qui contient le fichier `README.md` et le dossier `src`).
+Ouvrez un terminal et placez-vous dans le dossier **racine** du projet (celui contenant le dossier `src` et le fichier `README.md`).
 
 ### 1. Compilation
 
-Compilez l'ensemble des fichiers source Java avec la commande suivante :
+Compilez l'ensemble du projet avec la commande suivante :
 
 ```bash
 javac -cp src src/com/campusconnect/models/*.java src/com/campusconnect/exceptions/*.java src/com/campusconnect/services/*.java src/com/campusconnect/ui/*.java
 ```
 
-*(Si vous êtes sous Windows et que la commande précédente pose problème à cause des espaces ou des jokers `*.java`, vous pouvez utiliser cette commande alternative avec PowerShell)* :
+*(Sous Windows avec PowerShell, utilisez plutôt cette commande si la précédente échoue)* :
 ```powershell
 Get-ChildItem -Recurse src\*.java | ForEach-Object { javac -cp src $_.FullName }
 ```
 
-### 2. Exécution
+### 2. Démarrage du Projet
 
-Une fois la compilation réussie (aucun message d'erreur ne devrait s'afficher), vous pouvez lancer le projet de deux manières différentes :
+Le système CampusConnect peut être lancé de deux manières, selon vos préférences.
 
-**Lancement de l'Interface Graphique (GUI) - Recommandé :**
-Exécutez la commande suivante depuis la racine du projet pour ouvrir le tableau de bord administrateur (inspiré de notre design) :
+#### Option A : Lancement de l'Interface Graphique (Dashboard) 🌟 Recommandé
+Exécutez la commande suivante depuis la racine du projet pour ouvrir le tableau de bord visuel :
 ```bash
 java -cp src com.campusconnect.ui.Main
 ```
 
-**Lancement de l'Interface Console :**
-Si vous préférez utiliser l'application via les menus dans le terminal, exécutez cette commande (qui passera l'argument "console") :
+#### Option B : Lancement de l'Interface Console (CLI)
+Si vous préférez interagir via les menus du terminal, ajoutez l'argument `console` :
 ```bash
 java -cp src com.campusconnect.ui.Main console
 ```
 
-## Fonctionnalités Principales
-
-1. **Affichage des acteurs :** Lister tous les étudiants et enseignants enregistrés.
-2. **Inscription :** Inscrire un étudiant à un groupe spécifique d'un cours (avec vérification de la capacité).
-3. **Saisie de notes :** Saisir une note et son coefficient pour un étudiant dans un cours donné.
-4. **Relevé de notes :** Générer le relevé avec calcul de la moyenne générale d'un étudiant.
-5. **Planification de séance :** Assigner une salle, un enseignant et un horaire pour un cours (avec détection stricte des conflits horaires, de salle et de capacité).
-6. **Interface Graphique (Dashboard) :** Une vue d'ensemble claire des statistiques (étudiants, enseignants, cours actifs) et des activités récentes de l'université.
+---
+*Projet développé dans le cadre d'une évaluation de Programmation Orientée Objet (POO).*
