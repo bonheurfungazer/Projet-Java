@@ -24,6 +24,10 @@ public class Etudiant extends Personne {
     public String getFiliere() { return filiere; }
     public List<Groupe> getGroupesInscrits() { return groupesInscrits; }
 
+    public void setMatricule(String matricule) { this.matricule = matricule; }
+    public void setAnneeEtude(String anneeEtude) { this.anneeEtude = anneeEtude; }
+    public void setFiliere(String filiere) { this.filiere = filiere; }
+
     public void ajouterGroupe(Groupe groupe) {
         if (!this.groupesInscrits.contains(groupe)) {
             this.groupesInscrits.add(groupe);

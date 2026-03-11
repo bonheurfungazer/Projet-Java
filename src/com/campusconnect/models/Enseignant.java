@@ -23,6 +23,9 @@ public class Enseignant extends Personne {
     public String getDepartement() { return departement; }
     public List<Groupe> getGroupesEnseignes() { return groupesEnseignes; }
 
+    public void setStatut(Statut statut) { this.statut = statut; }
+    public void setDepartement(String departement) { this.departement = departement; }
+
     public void ajouterGroupe(Groupe groupe) {
         if (!this.groupesEnseignes.contains(groupe)) {
             this.groupesEnseignes.add(groupe);

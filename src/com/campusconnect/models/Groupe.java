@@ -32,6 +32,11 @@ public class Groupe {
     public Enseignant getEnseignant() { return enseignant; }
     public List<Etudiant> getEtudiantsInscrits() { return etudiantsInscrits; }
 
+    public void setNom(String nom) { this.nom = nom; }
+    public void setCours(Cours cours) { this.cours = cours; }
+    public void setCapaciteMax(int capaciteMax) { this.capaciteMax = capaciteMax; }
+    public void setEnseignant(Enseignant enseignant) { this.enseignant = enseignant; }
+
     public void inscrireEtudiant(Etudiant etudiant) throws CapaciteDepasseeException {
         if (etudiantsInscrits.size() >= capaciteMax) {
             throw new CapaciteDepasseeException("La capacité maximale du groupe " + nom + " est atteinte (" + capaciteMax + ").");

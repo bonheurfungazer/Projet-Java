@@ -53,6 +53,25 @@ public class GestionPlanning {
         System.out.println("Séance planifiée avec succès.");
     }
 
+    public List<Seance> getSeances() { return seances; }
+
+    public Seance getSeanceByDetails(String codeCours, String dateStr, String debutStr) {
+        try {
+            LocalDate date = LocalDate.parse(dateStr);
+            LocalTime debut = LocalTime.parse(debutStr);
+            for (Seance s : seances) {
+                if (s.getGroupe().getCours().getCode().equals(codeCours) && s.getDate().equals(date) && s.getHeureDebut().equals(debut)) {
+                    return s;
+                }
+            }
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public void supprimerSeance(Seance s) {
+        seances.remove(s);
+    }
+
     public void afficherPlanning() {
         if (seances.isEmpty()) {
             System.out.println("Aucune séance planifiée.");

@@ -15,6 +15,10 @@ public class GestionActeurs {
         this.personnes = new ArrayList<>();
     }
 
+    public void supprimerPersonne(Personne p) {
+        personnes.remove(p);
+    }
+
     public void ajouterPersonne(Personne p) {
         if (!personnes.contains(p)) {
             personnes.add(p);

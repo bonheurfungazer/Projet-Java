@@ -26,4 +26,11 @@ public class Seance {
     public LocalDate getDate() { return date; }
     public LocalTime getHeureDebut() { return heureDebut; }
     public LocalTime getHeureFin() { return heureFin; }
+
+    public void setGroupe(Groupe groupe) { this.groupe = groupe; }
+    public void setEnseignant(Enseignant enseignant) { this.enseignant = enseignant; }
+    public void setSalle(Salle salle) { this.salle = salle; }
+    public void setDate(LocalDate date) { this.date = date; }
+    public void setHeureDebut(LocalTime heureDebut) { this.heureDebut = heureDebut; }
+    public void setHeureFin(LocalTime heureFin) { this.heureFin = heureFin; }
 }

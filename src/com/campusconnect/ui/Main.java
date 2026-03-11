@@ -16,7 +16,7 @@ public class Main {
 
         if (args.length > 0 && args[0].equalsIgnoreCase("console")) {
             // Lancer la version console
-            CampusApp.main(args);
+            CampusApp.lancer(gestionActeurs, gestionFormation, gestionSuivi, gestionPlanning);
         } else {
             // Lancer la version GUI
             javax.swing.SwingUtilities.invokeLater(() -> {

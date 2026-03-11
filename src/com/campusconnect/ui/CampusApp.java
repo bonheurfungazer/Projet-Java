@@ -11,10 +11,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class CampusApp {
-    private static GestionActeurs gestionActeurs = new GestionActeurs();
-    private static GestionFormation gestionFormation = new GestionFormation();
-    private static GestionSuiviAcademique gestionSuivi = new GestionSuiviAcademique();
-    private static GestionPlanning gestionPlanning = new GestionPlanning();
+    private static GestionActeurs gestionActeurs;
+    private static GestionFormation gestionFormation;
+    private static GestionSuiviAcademique gestionSuivi;
+    private static GestionPlanning gestionPlanning;
     private static Scanner scanner = new Scanner(System.in);
 
     // Couleurs ANSI
@@ -27,8 +27,12 @@ public class CampusApp {
     public static final String BLUE = "\033[34m";
     public static final String PURPLE = "\033[35m";
 
-    public static void main(String[] args) {
-        initialiserDonnees();
+    public static void lancer(GestionActeurs act, GestionFormation form, GestionSuiviAcademique suivi, GestionPlanning plan) {
+        gestionActeurs = act;
+        gestionFormation = form;
+        gestionSuivi = suivi;
+        gestionPlanning = plan;
+
 
         boolean continuer = true;
         clearScreen();
@@ -38,12 +42,14 @@ public class CampusApp {
             System.out.println(CYAN + "╭──────────────────────────────────────────────────╮" + RESET);
             System.out.println(CYAN + "│                 Menu Principal                   │" + RESET);
             System.out.println(CYAN + "├──────────────────────────────────────────────────┤" + RESET);
-            System.out.println(CYAN + "│ " + RESET + "1. Afficher les acteurs (Étudiants/Enseignants)  " + CYAN + "│" + RESET);
+            System.out.println(CYAN + "│ " + RESET + "1. Gestion des Acteurs                           " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "2. Inscrire un étudiant à un cours               " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "3. Saisir une note pour un étudiant              " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "4. Générer le relevé de notes d'un étudiant      " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "5. Planifier une séance de cours                 " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "6. Afficher le planning                          " + CYAN + "│" + RESET);
+            System.out.println(CYAN + "│ " + RESET + "7. Gestion des Cours                             " + CYAN + "│" + RESET);
+            System.out.println(CYAN + "│ " + RESET + "8. Gestion des Salles                            " + CYAN + "│" + RESET);
             System.out.println(CYAN + "│ " + RESET + "0. Quitter l'application                         " + CYAN + "│" + RESET);
             System.out.println(CYAN + "╰──────────────────────────────────────────────────╯" + RESET);
 
@@ -53,7 +59,7 @@ public class CampusApp {
             try {
                 switch (choix) {
                     case "1":
-                        afficherActeursFiltres();
+                        menuGestionActeurs();
                         break;
                     case "2":
                         menuInscription();
@@ -69,6 +75,12 @@ public class CampusApp {
                         break;
                     case "6":
                         gestionPlanning.afficherPlanning();
+                        break;
+                    case "7":
+                        menuGestionCours();
+                        break;
+                    case "8":
+                        menuGestionSalles();
                         break;
                     case "0":
                         continuer = false;
@@ -97,11 +109,6 @@ public class CampusApp {
         System.out.println("╚══════════════════════════════════════════════════╝" + RESET);
     }
 
-    private static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
     private static String promptInput(String label) {
         System.out.print("\n" + PURPLE + "╭─[ " + label + " ]\n╰─❯ " + RESET);
         return scanner.nextLine();
@@ -122,6 +129,241 @@ public class CampusApp {
             System.out.printf("%-10s | %-15s | %-15s | %-15s | %-10s\n", e.getId(), e.getNom(), e.getPrenom(), e.getDepartement(), e.getStatut());
         }
     }
+    private static void menuGestionCours() {
+        boolean retour = false;
+        while (!retour) {
+            System.out.println(BOLD + "--- Gestion des Cours ---" + RESET);
+            System.out.println("1. Afficher tous les cours");
+            System.out.println("2. Ajouter un cours");
+            System.out.println("3. Modifier un cours");
+            System.out.println("4. Supprimer un cours");
+            System.out.println("0. Retour au menu principal");
+            String choix = promptInput("Votre choix");
+            clearScreen();
+            switch (choix) {
+                case "1": for (Cours c : gestionFormation.getCours()) System.out.println(c.getCode() + " - " + c.getIntitule()); break;
+                case "2": menuAjouterCours(); break;
+                case "3": menuModifierCours(); break;
+                case "4": menuSupprimerCours(); break;
+                case "0": retour = true; break;
+                default: System.out.println(RED + "⚠ Choix invalide." + RESET);
+            }
+        }
+    }
+
+    private static void menuAjouterCours() {
+        System.out.println(BOLD + "--- Ajouter un Cours ---" + RESET);
+        String code = promptInput("Code");
+        String intitule = promptInput("Intitulé");
+        String description = promptInput("Description");
+        int volHoraire = Integer.parseInt(promptInput("Volume horaire"));
+        String idEnseignant = promptInput("ID Enseignant Responsable");
+        Enseignant prof = gestionActeurs.getEnseignantById(idEnseignant);
+        if (prof != null) {
+            gestionFormation.ajouterCours(new Cours(code, intitule, description, volHoraire, prof));
+            System.out.println(GREEN + "✓ Cours ajouté." + RESET);
+        } else {
+            System.out.println(RED + "⚠ Enseignant introuvable." + RESET);
+        }
+    }
+
+    private static void menuModifierCours() {
+        System.out.println(BOLD + "--- Modifier un Cours ---" + RESET);
+        String code = promptInput("Code du cours");
+        Cours c = gestionFormation.getCoursByCode(code);
+        if (c == null) {
+            System.out.println(RED + "⚠ Cours introuvable." + RESET);
+            return;
+        }
+        c.setIntitule(promptInput("Nouvel intitulé (" + c.getIntitule() + ")"));
+        c.setDescription(promptInput("Nouvelle description (" + c.getDescription() + ")"));
+        c.setVolumeHoraire(Integer.parseInt(promptInput("Nouveau vol. horaire (" + c.getVolumeHoraire() + ")")));
+        System.out.println(GREEN + "✓ Cours modifié." + RESET);
+    }
+
+    private static void menuSupprimerCours() {
+        System.out.println(BOLD + "--- Supprimer un Cours ---" + RESET);
+        String code = promptInput("Code du cours");
+        Cours c = gestionFormation.getCoursByCode(code);
+        if (c == null) {
+            System.out.println(RED + "⚠ Cours introuvable." + RESET);
+            return;
+        }
+        gestionFormation.supprimerCours(c);
+        System.out.println(GREEN + "✓ Cours supprimé." + RESET);
+    }
+
+    private static void menuGestionSalles() {
+        boolean retour = false;
+        while (!retour) {
+            System.out.println(BOLD + "--- Gestion des Salles ---" + RESET);
+            System.out.println("1. Afficher toutes les salles");
+            System.out.println("2. Ajouter une salle");
+            System.out.println("3. Modifier une salle");
+            System.out.println("4. Supprimer une salle");
+            System.out.println("0. Retour au menu principal");
+            String choix = promptInput("Votre choix");
+            clearScreen();
+            switch (choix) {
+                case "1": for (Salle s : gestionFormation.getSalles()) System.out.println(s.getIdSalle() + " - " + s.getType() + " (" + s.getCapaciteAccueil() + " places)"); break;
+                case "2": menuAjouterSalle(); break;
+                case "3": menuModifierSalle(); break;
+                case "4": menuSupprimerSalle(); break;
+                case "0": retour = true; break;
+                default: System.out.println(RED + "⚠ Choix invalide." + RESET);
+            }
+        }
+    }
+
+    private static void menuAjouterSalle() {
+        System.out.println(BOLD + "--- Ajouter une Salle ---" + RESET);
+        String id = promptInput("ID de la salle");
+        int cap = Integer.parseInt(promptInput("Capacité"));
+        Salle.TypeSalle type = Salle.TypeSalle.valueOf(promptInput("Type (AMPHI, TP, COURS_CLASSIQUE)").toUpperCase());
+        gestionFormation.ajouterSalle(new Salle(id, cap, type));
+        System.out.println(GREEN + "✓ Salle ajoutée." + RESET);
+    }
+
+    private static void menuModifierSalle() {
+        System.out.println(BOLD + "--- Modifier une Salle ---" + RESET);
+        String id = promptInput("ID de la salle");
+        Salle s = gestionFormation.getSalleById(id);
+        if (s == null) {
+            System.out.println(RED + "⚠ Salle introuvable." + RESET);
+            return;
+        }
+        s.setCapaciteAccueil(Integer.parseInt(promptInput("Nouvelle capacité (" + s.getCapaciteAccueil() + ")")));
+        System.out.println(GREEN + "✓ Salle modifiée." + RESET);
+    }
+
+    private static void menuSupprimerSalle() {
+        System.out.println(BOLD + "--- Supprimer une Salle ---" + RESET);
+        String id = promptInput("ID de la salle");
+        Salle s = gestionFormation.getSalleById(id);
+        if (s == null) {
+            System.out.println(RED + "⚠ Salle introuvable." + RESET);
+            return;
+        }
+        gestionFormation.supprimerSalle(s);
+        System.out.println(GREEN + "✓ Salle supprimée." + RESET);
+    }
+
+    private static void menuGestionActeurs() {
+        boolean retour = false;
+        while (!retour) {
+            System.out.println(BOLD + "--- Gestion des Acteurs ---" + RESET);
+            System.out.println("1. Afficher tous les acteurs");
+            System.out.println("2. Ajouter un étudiant");
+            System.out.println("3. Modifier un étudiant");
+            System.out.println("4. Supprimer un étudiant");
+            System.out.println("5. Ajouter un enseignant");
+            System.out.println("6. Modifier un enseignant");
+            System.out.println("7. Supprimer un enseignant");
+            System.out.println("0. Retour au menu principal");
+            String choix = promptInput("Votre choix");
+            clearScreen();
+            switch (choix) {
+                case "1": afficherActeursFiltres(); break;
+                case "2": menuAjouterEtudiant(); break;
+                case "3": menuModifierEtudiant(); break;
+                case "4": menuSupprimerEtudiant(); break;
+                case "5": menuAjouterEnseignant(); break;
+                case "6": menuModifierEnseignant(); break;
+                case "7": menuSupprimerEnseignant(); break;
+                case "0": retour = true; break;
+                default: System.out.println(RED + "⚠ Choix invalide." + RESET);
+            }
+        }
+    }
+
+    private static void menuAjouterEnseignant() {
+        System.out.println(BOLD + "--- Ajouter un Enseignant ---" + RESET);
+        String id = promptInput("ID unique");
+        String nom = promptInput("Nom");
+        String prenom = promptInput("Prénom");
+        String email = promptInput("Email");
+        String departement = promptInput("Département");
+        Enseignant.Statut statut = Enseignant.Statut.valueOf(promptInput("Statut (PERMANENT ou VACATAIRE)").toUpperCase());
+        Enseignant e = new Enseignant(id, nom, prenom, email, LocalDate.now(), statut, departement);
+        gestionActeurs.ajouterPersonne(e);
+        System.out.println(GREEN + "✓ Enseignant ajouté avec succès." + RESET);
+    }
+
+    private static void menuModifierEnseignant() {
+        System.out.println(BOLD + "--- Modifier un Enseignant ---" + RESET);
+        String id = promptInput("ID de l'enseignant");
+        Enseignant e = gestionActeurs.getEnseignantById(id);
+        if (e == null) {
+            System.out.println(RED + "⚠ Enseignant non trouvé." + RESET);
+            return;
+        }
+        e.setNom(promptInput("Nouveau nom (" + e.getNom() + ")"));
+        e.setPrenom(promptInput("Nouveau prénom (" + e.getPrenom() + ")"));
+        e.setEmail(promptInput("Nouvel email (" + e.getEmail() + ")"));
+        e.setDepartement(promptInput("Nouveau département (" + e.getDepartement() + ")"));
+        System.out.println(GREEN + "✓ Enseignant modifié avec succès." + RESET);
+    }
+
+    private static void menuSupprimerEnseignant() {
+        System.out.println(BOLD + "--- Supprimer un Enseignant ---" + RESET);
+        String id = promptInput("ID de l'enseignant");
+        Enseignant e = gestionActeurs.getEnseignantById(id);
+        if (e == null) {
+            System.out.println(RED + "⚠ Enseignant non trouvé." + RESET);
+            return;
+        }
+        gestionActeurs.supprimerPersonne(e);
+        System.out.println(GREEN + "✓ Enseignant supprimé avec succès." + RESET);
+    }
+
+    private static void menuAjouterEtudiant() {
+        System.out.println(BOLD + "--- Ajouter un Étudiant ---" + RESET);
+        String id = promptInput("ID unique");
+        String nom = promptInput("Nom");
+        String prenom = promptInput("Prénom");
+        String email = promptInput("Email");
+        String matricule = promptInput("Matricule");
+        String annee = promptInput("Année (ex: L3)");
+        String filiere = promptInput("Filière");
+        Etudiant e = new Etudiant(id, nom, prenom, email, LocalDate.now(), matricule, annee, filiere);
+        gestionActeurs.ajouterPersonne(e);
+        System.out.println(GREEN + "✓ Étudiant ajouté avec succès." + RESET);
+    }
+
+    private static void menuModifierEtudiant() {
+        System.out.println(BOLD + "--- Modifier un Étudiant ---" + RESET);
+        String matricule = promptInput("Matricule de l'étudiant");
+        Etudiant e = gestionActeurs.getEtudiantByMatricule(matricule);
+        if (e == null) {
+            System.out.println(RED + "⚠ Étudiant non trouvé." + RESET);
+            return;
+        }
+        e.setNom(promptInput("Nouveau nom (" + e.getNom() + ")"));
+        e.setPrenom(promptInput("Nouveau prénom (" + e.getPrenom() + ")"));
+        e.setEmail(promptInput("Nouvel email (" + e.getEmail() + ")"));
+        e.setAnneeEtude(promptInput("Nouvelle année (" + e.getAnneeEtude() + ")"));
+        e.setFiliere(promptInput("Nouvelle filière (" + e.getFiliere() + ")"));
+        System.out.println(GREEN + "✓ Étudiant modifié avec succès." + RESET);
+    }
+
+    private static void menuSupprimerEtudiant() {
+        System.out.println(BOLD + "--- Supprimer un Étudiant ---" + RESET);
+        String matricule = promptInput("Matricule de l'étudiant");
+        Etudiant e = gestionActeurs.getEtudiantByMatricule(matricule);
+        if (e == null) {
+            System.out.println(RED + "⚠ Étudiant non trouvé." + RESET);
+            return;
+        }
+        gestionActeurs.supprimerPersonne(e);
+        System.out.println(GREEN + "✓ Étudiant supprimé avec succès." + RESET);
+    }
+
+
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 
     private static void menuInscription() {
         System.out.println(BOLD + "--- Inscription d'un Étudiant ---" + RESET);
@@ -239,45 +481,5 @@ public class CampusApp {
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(RED + "⚠ Saisie invalide." + RESET);
         }
-    }
-
-    // --- Jeu d'essai initial ---
-    private static void initialiserDonnees() {
-        // Enseignants
-        Enseignant prof1 = new Enseignant("E001", "Dupont", "Jean", "jean.dupont@campus.com", LocalDate.of(1980, 5, 12), Enseignant.Statut.PERMANENT, "Informatique");
-        Enseignant prof2 = new Enseignant("E002", "Martin", "Sophie", "sophie.martin@campus.com", LocalDate.of(1985, 8, 22), Enseignant.Statut.VACATAIRE, "Mathématiques");
-        gestionActeurs.ajouterPersonne(prof1);
-        gestionActeurs.ajouterPersonne(prof2);
-
-        // Étudiants
-        Etudiant etu1 = new Etudiant("S001", "Durand", "Alice", "alice.durand@campus.com", LocalDate.of(2001, 3, 15), "MAT123", "L3", "Informatique");
-        Etudiant etu2 = new Etudiant("S002", "Lefebvre", "Marc", "marc.lefebvre@campus.com", LocalDate.of(2000, 11, 2), "MAT456", "L3", "Informatique");
-        gestionActeurs.ajouterPersonne(etu1);
-        gestionActeurs.ajouterPersonne(etu2);
-
-        // Cours & Groupes
-        Cours coursJava = new Cours("INFO-301", "Programmation Orientée Objet", "Concepts avancés", 40, prof1);
-        Cours coursBD = new Cours("INFO-302", "Bases de Données", "Modélisation", 30, prof2);
-        gestionFormation.ajouterCours(coursJava);
-        gestionFormation.ajouterCours(coursBD);
-
-        Groupe cmJava = new Groupe("CM", coursJava, 100, prof1);
-        Groupe tdJava = new Groupe("TD1", coursJava, 30, prof1);
-
-        // Salles
-        Salle amphiA = new Salle("Amphi A", 150, Salle.TypeSalle.AMPHI);
-        Salle salleTP1 = new Salle("Salle 402", 35, Salle.TypeSalle.TP);
-        gestionFormation.ajouterSalle(amphiA);
-        gestionFormation.ajouterSalle(salleTP1);
-
-        // Inscriptions initiales
-        try {
-            gestionSuivi.inscrireEtudiant(etu1, cmJava);
-            gestionSuivi.inscrireEtudiant(etu2, cmJava);
-            gestionSuivi.inscrireEtudiant(etu1, tdJava);
-
-            gestionSuivi.ajouterNote(etu1, coursJava, 16.5, 2.0);
-            gestionSuivi.ajouterNote(etu1, coursJava, 14.0, 1.0);
-        } catch(Exception e) {}
     }
 }
