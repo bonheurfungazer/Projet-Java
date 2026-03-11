@@ -82,6 +82,12 @@ public class DashboardGUI extends JFrame {
             sidebar.add(Box.createRigidArea(new Dimension(0, 10)));
         }
 
+        sidebar.add(Box.createVerticalGlue());
+        JLabel author = new JLabel("<html><br><b>Réalisé par:</b><br>Guepi takouo peguy maeva</html>");
+        author.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        author.setForeground(Color.GRAY);
+        author.setAlignmentX(Component.LEFT_ALIGNMENT);
+        sidebar.add(author);
         add(sidebar, BorderLayout.WEST);
 
         // 2. Main Content Wrapper

@@ -22,6 +22,7 @@ public class CampusApp {
 
         System.out.println("==========================================");
         System.out.println("  Bienvenue sur CampusConnect Dashboard   ");
+        System.out.println("  \033[1mProjet realise par l'etudiant : Guepi takouo peguy maeva\033[0m  ");
         System.out.println("==========================================\n");
         System.out.println("==========================================");
 
