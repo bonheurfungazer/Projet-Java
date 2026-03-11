@@ -16,4 +16,17 @@ public class Salle {
     public String getIdSalle() { return idSalle; }
     public int getCapaciteAccueil() { return capaciteAccueil; }
     public TypeSalle getType() { return type; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Salle salle = (Salle) o;
+        return java.util.Objects.equals(idSalle, salle.idSalle);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hashCode(idSalle);
+    }
 }
