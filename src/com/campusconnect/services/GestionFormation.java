@@ -5,31 +5,29 @@ import com.campusconnect.models.Groupe;
 import com.campusconnect.models.Salle;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GestionFormation {
-    private List<Cours> coursList;
-    private List<Salle> salles;
+    private Set<Cours> coursList;
+    private Set<Salle> salles;
 
     public GestionFormation() {
-        this.coursList = new ArrayList<>();
-        this.salles = new ArrayList<>();
+        this.coursList = new LinkedHashSet<>();
+        this.salles = new LinkedHashSet<>();
     }
 
     public void ajouterCours(Cours cours) {
-        if (!coursList.contains(cours)) {
-            coursList.add(cours);
-        }
+        coursList.add(cours);
     }
 
     public void ajouterSalle(Salle salle) {
-        if (!salles.contains(salle)) {
-            salles.add(salle);
-        }
+        salles.add(salle);
     }
 
-    public List<Cours> getCours() { return coursList; }
-    public List<Salle> getSalles() { return salles; }
+    public List<Cours> getCours() { return new ArrayList<>(coursList); }
+    public List<Salle> getSalles() { return new ArrayList<>(salles); }
 
     public Cours getCoursByCode(String code) {
         for (Cours c : coursList) {
