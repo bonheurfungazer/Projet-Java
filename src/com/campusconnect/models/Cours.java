@@ -27,6 +27,12 @@ public class Cours {
     public Enseignant getResponsable() { return responsable; }
     public List<Groupe> getGroupes() { return groupes; }
 
+    public void setCode(String code) { this.code = code; }
+    public void setIntitule(String intitule) { this.intitule = intitule; }
+    public void setDescription(String description) { this.description = description; }
+    public void setVolumeHoraire(int volumeHoraire) { this.volumeHoraire = volumeHoraire; }
+    public void setResponsable(Enseignant responsable) { this.responsable = responsable; }
+
     public void ajouterGroupe(Groupe groupe) {
         if (!this.groupes.contains(groupe)) {
             this.groupes.add(groupe);

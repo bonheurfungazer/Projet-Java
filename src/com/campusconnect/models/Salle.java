@@ -16,4 +16,8 @@ public class Salle {
     public String getIdSalle() { return idSalle; }
     public int getCapaciteAccueil() { return capaciteAccueil; }
     public TypeSalle getType() { return type; }
+
+    public void setIdSalle(String idSalle) { this.idSalle = idSalle; }
+    public void setCapaciteAccueil(int capaciteAccueil) { this.capaciteAccueil = capaciteAccueil; }
+    public void setType(TypeSalle type) { this.type = type; }
 }

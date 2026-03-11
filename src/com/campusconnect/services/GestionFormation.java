@@ -16,10 +16,18 @@ public class GestionFormation {
         this.salles = new ArrayList<>();
     }
 
+    public void supprimerCours(Cours cours) {
+        coursList.remove(cours);
+    }
+
     public void ajouterCours(Cours cours) {
         if (!coursList.contains(cours)) {
             coursList.add(cours);
         }
+    }
+
+    public void supprimerSalle(Salle salle) {
+        salles.remove(salle);
     }
 
     public void ajouterSalle(Salle salle) {
