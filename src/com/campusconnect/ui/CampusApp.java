@@ -22,11 +22,8 @@ public class CampusApp {
 
         System.out.println("==========================================");
         System.out.println("  Bienvenue sur CampusConnect Dashboard   ");
+        System.out.println("  \033[1mProjet realise par l'etudiant : Guepi takouo peguy maeva\033[0m  ");
         System.out.println("==========================================\n");
-        System.out.println("Lien vers la conception du design Stitch (Dashboard UI v1) :");
-        System.out.println("https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzBjNWM2NjViYjA3NDQyY2Y4ZWM4NTFiOTRlNTU4YmI0EgsSBxC49uTL9g4YAZIBIwoKcHJvamVjdF9pZBIVQhMyOTE5NDE3ODE4MjA4NDU1MDIy&filename=&opi=96797242");
-        System.out.println("Lien vers la conception du design Stitch (Dashboard UI v2) :");
-        System.out.println("https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzgzZTRhMWQxMzRlZTRjM2NhMDc3YjE4YTYyNjA2ZjdiEgsSBxC49uTL9g4YAZIBIwoKcHJvamVjdF9pZBIVQhMyOTE5NDE3ODE4MjA4NDU1MDIy&filename=&opi=96797242\n");
         System.out.println("==========================================");
 
         boolean continuer = true;
