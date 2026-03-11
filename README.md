@@ -49,18 +49,22 @@ javac -cp src src/com/campusconnect/models/*.java src/com/campusconnect/exceptio
 Get-ChildItem -Recurse src\*.java | ForEach-Object { javac -cp src $_.FullName }
 ```
 
-### 2. Démarrage du Projet
+### 2. Démarrage du Projet (Deux Options)
 
-Le système CampusConnect peut être lancé de deux manières, selon vos préférences.
+Le système CampusConnect a été conçu avec une architecture flexible permettant de le lancer de deux manières, selon vos préférences. Une fois compilé, vous pouvez choisir l'interface souhaitée.
 
-#### Option A : Lancement de l'Interface Graphique (Dashboard) 🌟 Recommandé
-Exécutez la commande suivante depuis la racine du projet pour ouvrir le tableau de bord visuel :
+#### 🌟 Option A : Lancer l'Interface Graphique (Recommandé)
+Cette option ouvre un tableau de bord complet (Dashboard) fenêtré avec une barre latérale de navigation et des cartes de statistiques visuelles (réalisé avec Java Swing). C'est la façon la plus simple d'explorer les données.
+
+Pour lancer l'interface graphique, exécutez simplement cette commande depuis la racine :
 ```bash
 java -cp src com.campusconnect.ui.Main
 ```
 
-#### Option B : Lancement de l'Interface Console (CLI)
-Si vous préférez interagir via les menus du terminal, ajoutez l'argument `console` :
+#### 💻 Option B : Lancer l'Interface Console (Terminal)
+Si vous préférez interagir via les menus directement dans le terminal (CLI), l'application propose un menu interactif complet.
+
+Pour forcer le mode terminal, ajoutez le mot-clé `console` à la fin de la commande :
 ```bash
 java -cp src com.campusconnect.ui.Main console
 ```
