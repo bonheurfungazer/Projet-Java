@@ -672,10 +672,17 @@ public class DashboardGUI extends JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.getContentPane().setBackground(bgDark);
 
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(6, 2, 10, 10));
         panel.setBackground(bgDark);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
+        JLabel lblIdEns = new JLabel("ID Enseignant :"); lblIdEns.setForeground(textPrimary);
+        JTextField txtIdEns = new JTextField(s.getEnseignant().getId());
+        JLabel lblIdSalle = new JLabel("ID Salle :"); lblIdSalle.setForeground(textPrimary);
+        JTextField txtIdSalle = new JTextField(s.getSalle().getIdSalle());
+        JLabel lblGrpIndex = new JLabel("Index Groupe (1,2..) :"); lblGrpIndex.setForeground(textPrimary);
+        int index = s.getGroupe().getCours().getGroupes().indexOf(s.getGroupe()) + 1;
+        JTextField txtGrpIndex = new JTextField(String.valueOf(index));
         JLabel lblDate = new JLabel("Date (YYYY-MM-DD) :"); lblDate.setForeground(textPrimary);
         JTextField txtDate = new JTextField(s.getDate().toString());
         JLabel lblDebut = new JLabel("Début (HH:MM) :"); lblDebut.setForeground(textPrimary);
@@ -690,6 +697,14 @@ public class DashboardGUI extends JFrame {
 
         btnSubmit.addActionListener(event -> {
             try {
+                Enseignant ens = gestionActeurs.getEnseignantById(txtIdEns.getText());
+                Salle salle = gestionFormation.getSalleById(txtIdSalle.getText());
+                if (ens == null || salle == null) throw new Exception("Enseignant ou Salle introuvable");
+                int idx = Integer.parseInt(txtGrpIndex.getText()) - 1;
+                Groupe grp = s.getGroupe().getCours().getGroupes().get(idx);
+                s.setEnseignant(ens);
+                s.setSalle(salle);
+                s.setGroupe(grp);
                 s.setDate(LocalDate.parse(txtDate.getText()));
                 s.setHeureDebut(java.time.LocalTime.parse(txtDebut.getText()));
                 s.setHeureFin(java.time.LocalTime.parse(txtFin.getText()));
@@ -700,6 +715,9 @@ public class DashboardGUI extends JFrame {
             }
         });
 
+        panel.add(lblIdEns); panel.add(txtIdEns);
+        panel.add(lblIdSalle); panel.add(txtIdSalle);
+        panel.add(lblGrpIndex); panel.add(txtGrpIndex);
         panel.add(lblDate); panel.add(txtDate);
         panel.add(lblDebut); panel.add(txtDebut);
         panel.add(lblFin); panel.add(txtFin);

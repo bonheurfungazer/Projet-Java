@@ -175,6 +175,7 @@ public class CampusApp {
             System.out.println(RED + "⚠ Cours introuvable." + RESET);
             return;
         }
+        c.setCode(promptInput("Nouveau code (" + c.getCode() + ")"));
         c.setIntitule(promptInput("Nouvel intitulé (" + c.getIntitule() + ")"));
         c.setDescription(promptInput("Nouvelle description (" + c.getDescription() + ")"));
         c.setVolumeHoraire(Integer.parseInt(promptInput("Nouveau vol. horaire (" + c.getVolumeHoraire() + ")")));
