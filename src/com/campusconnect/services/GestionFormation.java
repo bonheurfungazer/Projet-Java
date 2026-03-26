@@ -1,7 +1,6 @@
 package com.campusconnect.services;
 
 import com.campusconnect.models.Cours;
-import com.campusconnect.models.Groupe;
 import com.campusconnect.models.Salle;
 
 import java.util.ArrayList;
