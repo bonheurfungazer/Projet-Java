@@ -90,7 +90,7 @@ public class CampusApp {
                         System.out.println(RED + "⚠ Choix invalide." + RESET);
                 }
             } catch (Exception e) {
-                System.out.println(RED + "⚠ Erreur: " + e.getMessage() + RESET);
+                System.out.println(RED + "⚠ Une erreur interne s'est produite." + RESET);
             }
 
             if (continuer) {
@@ -394,7 +394,7 @@ public class CampusApp {
             gestionSuivi.inscrireEtudiant(etudiant, groupe);
             System.out.println(GREEN + "✓ Inscription réussie : " + etudiant.getPrenom() + " -> " + groupe.getNom() + RESET);
         } catch (CapaciteDepasseeException e) {
-            System.out.println(RED + "⚠ Erreur de capacité : " + e.getMessage() + RESET);
+            System.out.println(RED + "⚠ La capacité maximale est atteinte." + RESET);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(RED + "⚠ Choix invalide." + RESET);
         }
@@ -421,7 +421,7 @@ public class CampusApp {
         } catch (NumberFormatException e) {
              System.out.println(RED + "⚠ Veuillez entrer des nombres valides." + RESET);
         } catch (IllegalArgumentException e) {
-            System.out.println(RED + "⚠ Erreur : " + e.getMessage() + RESET);
+            System.out.println(RED + "⚠ Entrée invalide." + RESET);
         }
     }
 
@@ -478,7 +478,7 @@ public class CampusApp {
         } catch (DateTimeParseException e) {
             System.out.println(RED + "⚠ Format de date ou d'heure invalide." + RESET);
         } catch (ConflitHoraireException e) {
-            System.out.println(RED + "⚠ Erreur de planification : " + e.getMessage() + RESET);
+            System.out.println(RED + "⚠ Conflit de planification détecté." + RESET);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println(RED + "⚠ Saisie invalide." + RESET);
         }
